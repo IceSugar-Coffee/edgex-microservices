@@ -3,6 +3,7 @@ import time
 import json
 import math
 import rospy
+import socket
 
 from paho.mqtt import client as mqtt_client
 from geometry_msgs.msg import Twist
@@ -14,7 +15,7 @@ broker = '172.19.137.237'  # broker地址，为wsl
 port = 1883  # mqtt默认端口
 subTopic = "command1"  # 订阅mqtt指令话题，可使用/分隔
 pubTopic = "ResponseTopic"  # 发布mqtt回复话题
-# dataTopic = "data/device1/"
+dataTopic = "data/device1/camera/"
 # generate client ID with pub prefix randomly
 client_id = f'python-mqtt-{random.randint(0, 100)}'
 
@@ -22,9 +23,12 @@ isRunning = False
 velocity = 0.0
 angular = 0.0
 position = "(0,0)"
-cameraUrl = "http://192.168.1.2:8080/shot.jpg"
+# cameraUrl = "http://192.168.1.2:8080/shot.jpg"
 laserScan = {}
 
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.connect(("8.8.8.8", 80))
+hostIp = s.getsockname()[0]
 
 def setVelocity(velocity):
     # TODO: 设置小车速度为 velocity (m/s)
@@ -78,6 +82,7 @@ def getPosition():
 
 def getCameraUrl():
     # TODO: 获取小车摄像头图像流的url并返回
+    cameraUrl = "http://"+hostIp+":8080/stream?topic=/camera/rgb/image_raw"
     print(f'Camera Url is: {cameraUrl}')
     return cameraUrl
 
@@ -138,6 +143,8 @@ def subscribe(client: mqtt_client):
             elif cmd == 'cameraUrl':
                 js['cameraUrl'] = getCameraUrl()
                 client.publish(pubTopic, json.dumps(js))
+                str = '{"message": "'+getCameraUrl()+'"}'
+                client.publish(dataTopic, str)
             elif cmd == 'laserScan':
                 js['laserScan'] = getLaserScan()
                 client.publish(pubTopic, json.dumps(js))
