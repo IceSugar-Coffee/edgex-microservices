@@ -25,6 +25,7 @@ angular = 0.0
 position = "(0,0)"
 # cameraUrl = "http://192.168.1.2:8080/shot.jpg"
 laserScan = {}
+rawImage = {}
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.connect(("8.8.8.8", 80))
@@ -81,10 +82,17 @@ def getPosition():
 
 
 def getCameraUrl():
-    # TODO: 获取小车摄像头图像流的url并返回
-    cameraUrl = "http://"+hostIp+":8080/stream?topic=/camera/rgb/image_raw"
-    print(f'Camera Url is: {cameraUrl}')
-    return cameraUrl
+    global rawImage
+    # TODO: 获取小车摄像头图像编码并返回
+    imgdata = rospy.wait_for_message("/camera/rgb/image_raw", Image, timeout=None)  # catch image datas
+    rawImage = {}
+    rawImage['height'] = imgdata.height
+    rawImage['width'] = imgdata.width
+    rawImage['encoding'] = imgdata.encoding
+    rawImage['data'] = imgdata.data
+    result = str(rawImage)
+    print(f'rawImage is: {result}')
+    return result
 
 
 def getLaserScan():
@@ -143,8 +151,6 @@ def subscribe(client: mqtt_client):
             elif cmd == 'cameraUrl':
                 js['cameraUrl'] = getCameraUrl()
                 client.publish(pubTopic, json.dumps(js))
-                str = '{"message": "'+getCameraUrl()+'"}'
-                client.publish(dataTopic, str)
             elif cmd == 'laserScan':
                 js['laserScan'] = getLaserScan()
                 client.publish(pubTopic, json.dumps(js))
