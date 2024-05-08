@@ -1,0 +1,106 @@
+name: ros-device-all    # 所有ROS小车公用的配置文件
+manufacturer: wsh
+description: ros device api
+model: MQTT-DEVICE
+labels: [mqtt, ros, final]
+deviceResources:
+- description: GET/SET VELOCITY COMMAND   # 获取/设置x线速度
+  name: velocity
+  isHidden: false
+  tag: ""
+  properties:
+    valueType: Float64
+    readWrite: RW
+    units: ""
+    minimum: ""
+    maximum: ""
+    defaultValue: ""
+    mask: ""
+    shift: ""
+    scale: ""
+    offset: ""
+    base: ""
+    assertion: ""
+    mediaType: ""
+  attributes: {}
+
+- description: GET/SET ANGULAR COMMAND    # 获取/设置z角速度
+  name: angular
+  isHidden: false
+  tag: ""
+  properties:
+    valueType: Float64
+    readWrite: RW
+    units: ""
+    minimum: ""
+    maximum: ""
+    defaultValue: ""
+    mask: ""
+    shift: ""
+    scale: ""
+    offset: ""
+    base: ""
+    assertion: ""
+    mediaType: ""
+  attributes: {}
+
+- description: GET POSITION COMMAND   # 获取坐标
+  name: position
+  isHidden: false
+  tag: ""
+  properties:
+    valueType: String
+    readWrite: R
+    units: ""
+    minimum: ""
+    maximum: ""
+    defaultValue: ""
+    mask: ""
+    shift: ""
+    scale: ""
+    offset: ""
+    base: ""
+    assertion: ""
+    mediaType: ""
+  attributes: {}
+
+- description: GET CAMERA URL COMMAND   # 获取图像流URL
+  name: cameraUrl
+  isHidden: false
+  tag: ""
+  properties:
+    valueType: String
+    readWrite: R
+    units: ""
+    minimum: ""
+    maximum: ""
+    defaultValue: ""
+    mask: ""
+    shift: ""
+    scale: ""
+    offset: ""
+    base: ""
+    assertion: ""
+    mediaType: ""
+  attributes: {}
+
+- description: GET LASER SCAN COMMAND   # 获取激光雷达扫描数据
+  name: laserScan
+  isHidden: false
+  tag: ""
+  properties:
+    valueType: String
+    readWrite: R
+    units: ""
+    minimum: ""
+    maximum: ""
+    defaultValue: ""
+    mask: ""
+    shift: ""
+    scale: ""
+    offset: ""
+    base: ""
+    assertion: ""
+    mediaType: ""
+  attributes: {}
+deviceCommands: []

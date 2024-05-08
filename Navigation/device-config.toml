@@ -1,0 +1,36 @@
+# Pre-define Devices
+[[DeviceList]]
+Name = "device0"
+ProfileName = "my-ros"
+Description = "MQTT device 0"
+Labels = ["MQTT", "ros", "final"]
+[DeviceList.Protocols]
+[DeviceList.Protocols.mqtt]
+# Comment out/remove below to use multi-level topics
+#  CommandTopic = "CommandTopic"
+# Uncomment below to use multi-level topics
+CommandTopic = "command/device0"
+
+[[DeviceList]]
+Name = "device1"
+ProfileName = "my-ros"
+Description = "MQTT device 1"
+Labels = ["MQTT", "ros", "final"]
+[DeviceList.Protocols]
+[DeviceList.Protocols.mqtt]
+# Comment out/remove below to use multi-level topics
+#  CommandTopic = "CommandTopic"
+# Uncomment below to use multi-level topics
+CommandTopic = "command/device1"
+
+[[DeviceList]]
+Name = "device2"
+ProfileName = "my-ros"
+Description = "MQTT device 2"
+Labels = ["MQTT", "ros", "final"]
+[DeviceList.Protocols]
+[DeviceList.Protocols.mqtt]
+# Comment out/remove below to use multi-level topics
+#  CommandTopic = "CommandTopic"
+# Uncomment below to use multi-level topics
+CommandTopic = "command/device2"
